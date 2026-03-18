@@ -1,0 +1,16 @@
+QTL	Candidate_Gene_Count	Best_Gene	Best_Gene_Symbol	Best_Gene_Keyword	Max_Score
+QTL1	151	LOC_Os02g27010			57.000
+QTL10	83	LOC_Os06g45650	OsMADS30	seed	65.000
+QTL11	93	LOC_Os07g47080			67.000
+QTL12	102	LOC_Os08g07040			59.333
+QTL13	173	LOC_Os08g09460			68.000
+QTL14	89	LOC_Os08g40440			59.000
+QTL15	91	LOC_Os10g39130	GL10|OsMADS56	breeding; flower; flowering; grain; grain length; grain shape; grain weight; growth; heading date; panicle; signaling pathway gene; transcription factor	66.500
+QTL2	80	LOC_Os02g38110			63.000
+QTL3	132	LOC_Os03g16880			71.000
+QTL4	68	LOC_Os03g29194			65.000
+QTL5	69	LOC_Os04g28280	An-1	awn; cell division; grain; grain number; grain size; grain yield; grains per panicle; panicle; yield	97.000
+QTL6	82	LOC_Os04g43840	An-2|LABA1|OsLOGL6	awn; cell division; cytokinin; development; domestication; grain; grain number; grain yield; grains per panicle; panicle; tiller; yield	86.333
+QTL7	122	LOC_Os04g49150			68.000
+QTL8	81	LOC_Os05g03110			58.000
+QTL9	78	LOC_Os05g11380			82.000

@@ -1,0 +1,8 @@
+*
+!.gitignore
+!V1/
+!V1/**
+
+# Python cache files should not be versioned.
+V1/**/__pycache__/
+V1/**/*.pyc

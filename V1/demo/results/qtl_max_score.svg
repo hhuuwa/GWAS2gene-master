@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1020" height="460">
+<style>text{font-family:Segoe UI,Arial,sans-serif;font-size:12px;fill:#14213d}.title{font-size:18px;font-weight:700}.axis{fill:#6b7280}.grid{stroke:#e5e7eb;stroke-width:1}</style>
+<rect x="0" y="0" width="1020" height="460" fill="#fffdf8"/>
+<text x="22" y="30" class="title">QTL Max Score Overview</text>
+<line class="grid" x1="510.0" y1="60" x2="510.0" y2="420"/>
+<text class="axis" x="498.0" y="448">24.2</text>
+<line class="grid" x1="660.0" y1="60" x2="660.0" y2="420"/>
+<text class="axis" x="648.0" y="448">48.5</text>
+<line class="grid" x1="810.0" y1="60" x2="810.0" y2="420"/>
+<text class="axis" x="798.0" y="448">72.8</text>
+<line class="grid" x1="960.0" y1="60" x2="960.0" y2="420"/>
+<text class="axis" x="948.0" y="448">97.0</text>
+<rect x="360" y="60" width="352.6" height="16" rx="3" fill="#b56576"/>
+<text x="12" y="74">QTL1</text>
+<text x="720.6" y="74">57.00</text>
+<rect x="360" y="84" width="402.1" height="16" rx="3" fill="#b56576"/>
+<text x="12" y="98">QTL10</text>
+<text x="770.1" y="98">65.00</text>
+<rect x="360" y="108" width="414.4" height="16" rx="3" fill="#b56576"/>
+<text x="12" y="122">QTL11</text>
+<text x="782.4" y="122">67.00</text>
+<rect x="360" y="132" width="367.0" height="16" rx="3" fill="#b56576"/>
+<text x="12" y="146">QTL12</text>
+<text x="735.0" y="146">59.33</text>
+<rect x="360" y="156" width="420.6" height="16" rx="3" fill="#b56576"/>
+<text x="12" y="170">QTL13</text>
+<text x="788.6" y="170">68.00</text>
+<rect x="360" y="180" width="364.9" height="16" rx="3" fill="#b56576"/>
+<text x="12" y="194">QTL14</text>
+<text x="732.9" y="194">59.00</text>
+<rect x="360" y="204" width="411.3" height="16" rx="3" fill="#b56576"/>
+<text x="12" y="218">QTL15</text>
+<text x="779.3" y="218">66.50</text>
+<rect x="360" y="228" width="389.7" height="16" rx="3" fill="#b56576"/>
+<text x="12" y="242">QTL2</text>
+<text x="757.7" y="242">63.00</text>
+<rect x="360" y="252" width="439.2" height="16" rx="3" fill="#b56576"/>
+<text x="12" y="266">QTL3</text>
+<text x="807.2" y="266">71.00</text>
+<rect x="360" y="276" width="402.1" height="16" rx="3" fill="#b56576"/>
+<text x="12" y="290">QTL4</text>
+<text x="770.1" y="290">65.00</text>
+<rect x="360" y="300" width="600.0" height="16" rx="3" fill="#b56576"/>
+<text x="12" y="314">QTL5</text>
+<text x="968.0" y="314">97.00</text>
+<rect x="360" y="324" width="534.0" height="16" rx="3" fill="#b56576"/>
+<text x="12" y="338">QTL6</text>
+<text x="902.0" y="338">86.33</text>
+<rect x="360" y="348" width="420.6" height="16" rx="3" fill="#b56576"/>
+<text x="12" y="362">QTL7</text>
+<text x="788.6" y="362">68.00</text>
+<rect x="360" y="372" width="358.8" height="16" rx="3" fill="#b56576"/>
+<text x="12" y="386">QTL8</text>
+<text x="726.8" y="386">58.00</text>
+<rect x="360" y="396" width="507.2" height="16" rx="3" fill="#b56576"/>
+<text x="12" y="410">QTL9</text>
+<text x="875.2" y="410">82.00</text>
+</svg>
