@@ -7,6 +7,7 @@ V1 is organized as a lighter, easier-to-run layout for demonstration, testing, a
 ## What V1 includes
 
 - Unified CLI wrapper: `V1/bin/riceg2g.py`
+- Annotation and top10 recommender: `V1/bin/annotate_recommendations.py`
 - Visualization builder: `V1/bin/make_demo_assets.py`
 - Windows easy launcher: `V1/bin/run_v1.ps1`
 - One-click demo runner: `V1/demo/run_demo.ps1`
@@ -26,12 +27,14 @@ V1 is organized as a lighter, easier-to-run layout for demonstration, testing, a
 - `V1/expand`: helper scripts for peak and QTL processing
 - `V1/demo`: runnable examples and bundled result snapshots
 - `V1/docs`: supplementary usage notes
+- `V1/docs/USAGE.md`: command help, workflows, examples, and troubleshooting
 - `V1/source`: keyword annotation source used in summaries
 - `V1/test_data`: lightweight files for quick validation
 
 ## Pipeline note
 
 V1 is configured to **skip `SelectFarmCPUPeakByCor.pl`**, so the packaged path does not require `Parent_unmiss.tped`.
+For newer rMVP outputs, V1 now prefers `data_flowering/<trait>.FarmCPU_signals.csv` as the FarmCPU peak source. If that file is absent, it falls back to full `*.FarmCPU.csv` input, including files placed under `data_*` directories such as `data_TGW`, and first extracts significant sites with the default threshold `p <= 1e-5`.
 
 ## Quick demo (Windows PowerShell)
 
@@ -42,6 +45,8 @@ powershell -ExecutionPolicy Bypass -File .\V1\demo\run_demo.ps1
 Expected output file:
 
 - `RAP_Step2_HZ_Awn_length.FarmCPUpeak_info`
+- `RAP_Step2_HZ_Awn_length.annotated.tsv`
+- `HZ_Awn_length_top10_candidate_genes.tsv`
 
 ## Demo with visualization
 
@@ -79,15 +84,54 @@ The most relevant example files in this repository are:
 
 ## General run (Windows PowerShell)
 
+For detailed command help:
+
+```powershell
+Get-Help .\V1\bin\run_v1.ps1 -Detailed
+.\.tools\python\python\python.exe .\V1\bin\riceg2g.py --help
+.\.tools\python\python\python.exe .\V1\expand\Select_FarmCPU_Peak.py --help
+.\.tools\python\python\python.exe .\V1\bin\annotate_recommendations.py --help
+```
+
+See `V1/docs/USAGE.md` for the full usage guide.
+
 ```powershell
 powershell -ExecutionPolicy Bypass -File .\V1\bin\run_v1.ps1 -Trait HZ_Awn_length -Keyword Awn_length -Tissue young_panicle -Step2Trait HZ_Awn_length
 ```
+
+HNHZ rMVP signals run with both WinQTLcart-backed and 200kb-window candidate sets:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\V1\bin\run_v1.ps1 -Trait HNHZ -Keyword Heading_date -Tissue leaves_flowering_stage -WinQtlTrait HZ_Heading_date -CandidateMode both -ForceFarmCpu -ForceRap
+```
+
+This also writes:
+
+- `RAP_Step2_HNHZ_winqtl.annotated.tsv`
+- `RAP_Step2_HNHZ_window200kb.annotated.tsv`
+- `HNHZ_top10_candidate_genes.tsv`
+
+TGW full FarmCPU CSV filtering-only example:
+
+```powershell
+.\.tools\python\python\python.exe .\V1\expand\Select_FarmCPU_Peak.py all_TGW_quality --p-threshold 1e-5
+```
+
+The FarmCPU filtering step writes `<trait>.FarmCPU.significant.tsv` before selecting `<trait>.FarmCPU.peak`.
 
 ## Direct Python run
 
 ```bash
 python V1/bin/riceg2g.py --trait HZ_Awn_length --keyword Awn_length --tissue young_panicle --step2-trait HZ_Awn_length
 ```
+
+HNHZ direct run with both candidate modes:
+
+```bash
+python V1/bin/riceg2g.py --trait HNHZ --keyword Heading_date --tissue leaves_flowering_stage --winqtl-trait HZ_Heading_date --candidate-mode both --force-farmcpu --force-rap
+```
+
+Annotation and top10 recommendation run automatically by default. Add `--skip-annotation` if you only want the raw Step2 outputs.
 
 ## Lightweight test dataset
 
