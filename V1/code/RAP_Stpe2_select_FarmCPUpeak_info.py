@@ -12,6 +12,16 @@ def to_num(v: str, default: float = 0.0) -> float:
         return default
 
 
+def is_heading_keyword(trait_keyword: str) -> bool:
+    return bool(
+        re.search(
+            r"heading|flowering|flowering[_\s-]*time|heading[_\s-]*date",
+            trait_keyword,
+            flags=re.IGNORECASE,
+        )
+    )
+
+
 def load_keywords(trait_keyword: str):
     key_words = []
     key_words_masked = []
@@ -24,11 +34,43 @@ def load_keywords(trait_keyword: str):
             trait = m.group(1)
             key = m.group(2)
             key2 = m.group(3) or ""
-            if re.search(trait, trait_keyword, flags=re.IGNORECASE):
+            if re.search(trait, trait_keyword, flags=re.IGNORECASE) or (
+                trait == "Heading_date" and is_heading_keyword(trait_keyword)
+            ):
                 key_words = [k for k in key.split(",") if k]
                 key_words_masked = [k for k in key2.split(",") if k]
                 break
+    if not key_words and re.search(r"(?:^|[_\s-])(?:TGW|TKW)(?:$|[_\s-])|thousand.*grain.*weight|1000.*grain.*weight", trait_keyword, flags=re.IGNORECASE):
+        key_words = [
+            "grain",
+            "seed",
+            "weight",
+            "grain weight",
+            "grain size",
+            "seed size",
+            "cell division",
+            "cell expansion",
+            "endosperm",
+            "starch",
+            "yield",
+        ]
     return key_words, key_words_masked
+
+
+def trait_matches(trait_keyword: str, values: str) -> bool:
+    if re.search(trait_keyword, values, flags=re.IGNORECASE):
+        return True
+    if is_heading_keyword(trait_keyword):
+        return bool(re.search(r"Heading_date|Heading_data|heading|flowering", values, flags=re.IGNORECASE))
+    if re.search(r"(?:^|[_\s-])(?:TGW|TKW)(?:$|[_\s-])|thousand.*grain.*weight|1000.*grain.*weight", trait_keyword, flags=re.IGNORECASE):
+        return bool(
+            re.search(
+                r"TGW|TKW|thousand.*grain.*weight|1000.*grain.*weight|grain[_\s-]*weight|seed[_\s-]*weight",
+                values,
+                flags=re.IGNORECASE,
+            )
+        )
+    return False
 
 
 def main() -> None:
@@ -50,12 +92,12 @@ def main() -> None:
         "anthers": "Recombination_times_per_sample",
         "Leaves_seeding_stage": "Leaf_length,Leaf_width",
         "leaves_tillering_stage": "",
-        "leaves_flowering_stage": "Leaf_angle,Leaf_length,Leaf_width,Heading_data,Plant_height,Culm_length,Panicle_enclosure,Protein,Seed_length,Seed_width",
-        "young_panicle": "Hull_color,Awn_length,Panicle_length,Yield,Seed_length,Seed_width",
+        "leaves_flowering_stage": "Leaf_angle,Leaf_length,Leaf_width,Heading_date,Heading_data,heading,flowering,Plant_height,Culm_length,Panicle_enclosure,Protein,Seed_length,Seed_width",
+        "young_panicle": "Hull_color,Awn_length,Panicle_length,Yield,Seed_length,Seed_width,TGW,grain_weight",
         "panicle_filling_stage": "Panicle_length,Panicle_enclosure",
         "tiller_buds": "Tiller_number,Mutiple_panicles_per_tiller,Yield",
         "embryos": "",
-        "developing_seeds": "Protein",
+        "developing_seeds": "Protein,TGW,TKW,thousand_grain_weight,grain_weight,seed_weight",
         "seeds_after_ageing": "",
         "seed_Germinating_stage": "48H,60H,72H",
         "shoot_apical_meristem": "Leaf_length,Leaf_width,Plant_height,Culm_length,Panicle_enclosure,Panicle_length",
@@ -85,7 +127,7 @@ def main() -> None:
 
     main_rna_cols = []
     for idx, name in enumerate(ranseq_name):
-        if re.search(trait_keyword, tissue.get(name, "")):
+        if trait_matches(trait_keyword, tissue.get(name, "")):
             main_rna_cols.append(idx + 17)
 
     src = f"RAP_{trait_short}.FarmCPUpeak_info"
@@ -188,14 +230,14 @@ def main() -> None:
                 at_info = f"{p1}{p3}{p4}"
             rice_ann = row[12] if len(row) > 12 else ""
             for k in key_words:
-                if re.search(k, at_info):
+                if re.search(k, at_info, flags=re.IGNORECASE):
                     num_at += 1
-                if re.search(k, rice_ann):
+                if re.search(k, rice_ann, flags=re.IGNORECASE):
                     num_rice += 1
             for k in key_words_masked:
-                if re.search(k, at_info):
+                if re.search(k, at_info, flags=re.IGNORECASE):
                     num_at -= 1
-                if re.search(k, rice_ann):
+                if re.search(k, rice_ann, flags=re.IGNORECASE):
                     num_rice -= 1
 
             if num_at >= 2 and num_rice >= 2:
